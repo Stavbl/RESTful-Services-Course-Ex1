@@ -9,10 +9,15 @@ var method = methods();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true }));
 
-app.all('*',
-    (req, res, next) => {
-    console.log('Got A Request!');
-    req.next();
+// app.all('*',
+//     (req, res, next) => {
+//     console.log('Got A Request!');
+//     req.next();
+// });
+app.use(express.static('public'));
+app.get('/', (req,res) => {
+  console.log('Trace: API Page');
+  res.sendFile(__dirname + '/api/index.html');
 });
 app.get('/getAllUsers/', (req, res) => {
   res.setHeader('Debug', 'getAllUsers was reached');

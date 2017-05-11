@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Security Settings API</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <h1>RESTful-Services-Course-Ex1</h1>
+      <ul>
+        <a href="https://github.com/Stavbl/RESTful-Services-Course-Ex1"><li>Github.com</li></a>
+        <a href="https://github.com/Stavbl/RESTful-Services-Course-Ex1/archive/master.zip"><li>Download .zip</li></a>
+      </ul>
+    </header>
+    <div id="main-container">
+      <main>
+        <h1>Security Settings Web Service API</h1>
+        <p>
+          This <span>WS</span> was created to provide detailes about<br>
+          our system's users and their security settings.<br>
+          As a RESTful Serveice all user's detailes will be returned<br> in
+          JSON format.
+        </p>
+        <div class="request">
+          <h3>Get All Users:  [GET]</h3>
+          <a href="https://security-settings-ws.herokuapp.com/getAllUsers">
+            https://security-settings-ws.herokuapp.com/getAllUsers</a>
+          <h4>Headers:</h4>
+          <p>
+            <span class="indent"></span>Debug - Shows indication u have reached the target
+          </p>
+          <h4>JSON Response Example:</h4>
+          <div class="json">
+            {
+            	"users": [{
+            		"id": 0,
+            		"user_name": "un",
+            		"password": "pass",
+            		"email": "wheresthecake@gmail.com",
+            		"first_name": "Moshe",
+            		"last_name": "Datz",
+            		"settings": {
+            			"login_alerts": true,
+            			"recognized_devices": ["Macbook Air", "LG G4", "Home PC"],
+            			"phone_to_aproove_password_change": "0541111111"
+            		}
+            	},
+            	{
+            		"id": 1,
+            		"user_name": "un",
+            		"password": "pass",
+            		"email": "shauarma@gmail.com",
+            		"first_name": "Avi",
+            		"last_name": "Biter",
+            		"settings": {
+            			"login_alerts": true,
+            			"recognized_devices": ["Dell inspirion", "IPhone 5s"],
+            			"phone_to_aproove_password_change": "0542222222"
+            		}
+            	}]
+            }
+          </div>
+        </div>
+        <div class="request">
+          <h3>Get User by ID: [GET | POST]</h3>
+          <a href="https://security-settings-ws.herokuapp.com/getUserById/0">
+            https://security-settings-ws.herokuapp.com/getUserById/###</a>
+          <h4>Parameters:</h4>
+          <p>
+            <span class="indent"></span>[GET]<br>
+            <span class="indent"></span><span class="indent"></span>### - user_id : Integer
+            <br><br>
+            <span class="indent"></span>[POST]<br>
+            <span class="indent"></span><span class="indent"></span>user_id : Integer
+          </p>
+          <h4>Headers:</h4>
+          <p>
+            <span class="indent"></span>Debug - Shows indication u have reached the target
+            <br><br>
+            <span class="indent"></span>Debug-info - Shows the user_id that the service got
+          </p>
+          <h4>JSON Response Example:</h4>
+          <div class="json">
+            {
+            	"user": {
+            		"id": 3,
+            		"user_name": "un",
+            		"password": "pass",
+            		"email": "troll@gmail.com",
+            		"first_name": "Asi",
+            		"last_name": "Cohen",
+            		"settings": {
+            			"login_alerts": false,
+            			"recognized_devices": ["HP Spectre", "Nexus 5"],
+            			"phone_to_aproove_password_change": "054333333"
+            		}
+            	}
+            }
+          </div>
+        </div>
+        <div class="request">
+          <h3>Get Alerts Devices Number Cross: [POST]</h3>
+          <a href="https://security-settings-ws.herokuapp.com/getAlertsDevicesCrossUsers/">
+            https://security-settings-ws.herokuapp.com/getAlertsDevicesCrossUsers/</a>
+          <h4>Parameters:</h4>
+          <p>
+            <span class="indent"></span>[POST]<br>
+            <span class="indent"></span><span class="indent"></span>login_alerts : boolean(true|false) - does the user got login alerts
+            <br>
+            <span class="indent"></span><span class="indent"></span>min_devices : Integer - minimum recognized devices
+          </p>
+          <h4>Headers:</h4>
+          <p>
+            <span class="indent"></span>Debug - Shows indication u have reached the target
+            <br><br>
+            <span class="indent"></span>Debug-info1 - Shows the login_alerts that the service got
+            <br><br>
+            <span class="indent"></span>Debug-info2 - Shows the min_devices that the service got
+          </p>
+          <h4>JSON Response Example:</h4>
+          <div class="json">
+            {
+              "users": [
+                {
+                  "id": 3,
+                  "user_name": "un",
+                  "password": "pass",
+                  "email": "troll@gmail.com",
+                  "first_name": "Asi",
+                  "last_name": "Cohen",
+                  "settings": {
+                    "login_alerts": false,
+                    "recognized_devices": [
+                      "HP Spectre",
+                      "Nexus 5"
+                    ],
+                    "phone_to_aproove_password_change": "054333333"
+                  }
+                }
+              ]
+            }
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

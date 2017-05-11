@@ -1,0 +1,99 @@
+main,a, header{
+  display: block;
+  text-decoration: none;
+}
+body {
+  width: 70%;
+  margin: auto;
+  background-color: #d2d6d5;
+}
+header {
+  background-color: #2aa5b1;
+  border-radius: 8px 8px 0px 0px;
+}
+header h1 {
+  padding-top: 50px;
+  padding-bottom: 30px;
+  font-size: 30px;
+  color: white;
+  font-family: 'Love Ya Like A Sister', cursive;
+  text-align: center;
+  margin-bottom: 0px;
+}
+header ul {
+  width: 40%;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 30px;
+}
+header li {
+  display: inline-block;
+}
+header li:hover {
+  /*background-color: white;
+  color: #2aa5b1;*/
+}
+header a {
+  display: inline-block;
+  margin-right: 40px;
+  border: 1px solid white;
+  border-radius: 8px 8px 8px 8px;
+  padding: 10px;
+  font-family: 'Love Ya Like A Sister', cursive;
+  max-width: 40%;
+  color: white;
+}
+header a:hover {
+  background-color: white;
+  color: #2aa5b1;
+}
+header #buttons {
+  width: 50%;
+  margin: auto;
+}
+header .button {
+  display: inline-block;
+  width: 48;
+  text-align: center;
+  float: left;
+}
+header #buttons:last-child {
+  float: right;
+}
+#main-container {
+  background-color: white;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-radius: 0px 0px 8px 8px;
+}
+main{
+  width: 70%;
+  margin: auto;
+}
+main h1 {
+  margin-top: 0px;
+  padding-top: 40px;
+  color: #147d86;
+}
+.request h3 {
+  color: #147d86;
+}
+.request a {
+  color: #2ecdd7;
+}
+.request h4 {
+  margin-bottom: 0px;
+}
+.json {
+  background-color: #e7eee8;
+  padding: 20px;
+  box-shadow: 4px 4px 30px 4px rgba(0,0,0,0.2);
+  font-family: 'Source Code Pro', monospace;
+}
+.clear {
+  clear: both;
+}
+.indent {
+  display: inline-block;
+  width: 30px;
+}
