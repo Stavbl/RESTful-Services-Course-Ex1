@@ -65,7 +65,7 @@
         </div>
         <div class="request">
           <h3>Get User by ID: [GET | POST]</h3>
-          <a href="https://security-settings-ws.herokuapp.com/getUserById/0">
+          <a href="https://security-settings-ws.herokuapp.com/getUserById/5919b065734d1d1cd0be67ab">
             https://security-settings-ws.herokuapp.com/getUserById/###</a>
           <h4>Parameters:</h4>
           <p>
@@ -140,6 +140,25 @@
                   }
                 }
               ]
+            }
+          </div>
+        </div>
+        <div class="request">
+          <h3>Error Handling</h3>
+          <p>
+            <span class="indent"></span>Every requset from the WS can return
+            <i>error</i> JSON or <i>info</i> JSON
+          </p>
+          <h4>Error JSON Example:</h4>
+          <div class="json">
+            {
+            	"error": "error description string"
+            }
+          </div>
+          <h4>Info JSON Example:</h4>
+          <div class="json">
+            {
+            	"info": "info string"
             }
           </div>
         </div>

@@ -1,57 +1,83 @@
-const data = require('../data/securitySettingsDB.json');
+const data        = require('../data/securitySettingsDB.json'),
+      consts      = require('../models/consts'),
+      mongoose    = require('mongoose'),
+      ObjectId = require('mongodb').ObjectID;
+
+const conn = mongoose.connection;
+var User = require('../models/user');
 
 class Methods {
 
+  connectToDB() {
+    mongoose.connect(consts.MLAB_KEY, function(err){
+      if (err) {
+        console.err(err);
+      } else {
+        console.log('Connected');
+      }
+    });
+  }
   getAllUsers() {
     console.log("Trace : getAllUsers()");
-    return { "users": data.users };
+    this.connectToDB();
+    return new Promise((resolve, reject) => {
+      User.find({},
+        (err, users) => {
+          if(err) {
+            reject({"error": err});
+            console.log('STATUS: FAILED');
+          }
+          console.log('STATUS: SUCCESS');
+          resolve(users);
+        }
+      );
+    });
   }
   getUserById(id) {
     console.log("Trace : getUserById("+id+")");
-    if(isNaN(id))
-      return {"error": "unexpected variable was given"};
-    let found = false;
-    for(let i in data.users) {
-      var user = data.users[i];
-      if(user.id == id) {
-        console.log("found user_id:" + id);
-        found = true;
-        return {"user": user};
-      }
-    }
-    if(!found)
-    {
-      console.log("user_id:" + id + " wasn't found");
-      return {"info": "user not found"};
-    }
+    this.connectToDB();
+    return new Promise((resolve, reject) => {
+      User.find({_id: ObjectId(id)},
+        (err, user) => {
+          if(err) {
+            reject({"error": err});
+            console.log('STATUS: FAILED');
+          }
+          console.log('STATUS: SUCCESS');
+          if(!user.length) {
+            console.log("info : there are no users who got this id");
+            resolve({"info": "there are no users who got this id"});
+          }
+          resolve(user);
+        });
+    });
   }
   getAlertsDevices(alerts, devices) {
     console.log("Trace : getAlertsDevices("+alerts+", "+devices+")");
-    let found = false;
     if(!(alerts == 'true' || alerts == 'false') || isNaN(devices)) {
       console.log("error: unexpected variables were posted")
       return {"error": "unexpected variables were posted"}
     }
-    var alrtsBool = (alerts == 'true');
+    var alrtsBool = (alerts === 'true');
     var devNum = parseInt(devices);
-    var usersArray = [];
-    for(let i in data.users) {
-      var user = data.users[i];
-      if(user.settings.login_alerts == alrtsBool)
-      {
-        if(user.settings.recognized_devices.length >= devNum) {
-          console.log("found cross devices and login alerts - user_id:" + user.id);
-          found = true;
-          usersArray.push(user);
-        }
-      }
-    }
-    if(!found)
-    {
-      console.log("info : there are no users who match this condition");
-      return {"info": "there are no users who match this condition"};
-    }
-    return {"users": usersArray};
+
+    this.connectToDB();
+    return new Promise((resolve, reject) => {
+      var conditions = {'settings.login_alerts':alrtsBool, "settings.recognized_devices_length":{ "$gte": devNum}};
+      User.find(conditions,
+        (err, users) => {
+          if(err) {
+            reject({"error": err});
+            console.log('STATUS: FAILED');
+          }
+          console.log('STATUS: SUCCESS');
+          if(!users.length) {
+            console.log("info : there are no users who match this condition");
+            resolve({"info": "there are no users who match this condition"});
+          }
+          resolve(users);
+        });
+    });
   }
 }
 
