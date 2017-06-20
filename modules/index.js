@@ -1,7 +1,6 @@
-const data        = require('../data/securitySettingsDB.json'),
-      consts      = require('../models/consts'),
+const consts      = require('../models/consts'),
       mongoose    = require('mongoose'),
-      ObjectId = require('mongodb').ObjectID;
+      ObjectId    = require('mongodb').ObjectID;
 
 const conn = mongoose.connection;
 var User = require('../models/user');

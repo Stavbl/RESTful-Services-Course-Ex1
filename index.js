@@ -1,6 +1,5 @@
 const   express     = require('express');
         app         = express(),
-        data        = require('./data/securitySettingsDB.json'),
         port        = process.env.PORT || 3000,
         bodyParser  = require('body-parser'),
         methods     = require('./modules');
@@ -8,10 +7,18 @@ const   express     = require('express');
 var method = methods();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true }));
+// app.use(express.static('public'));
+app.use('/', express.static('./public')); //for API
 
-app.use(express.static('public'));
+app.use((req,res,next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.get('/', (req,res) => {
   console.log('Trace: API Page');
+
   res.sendFile(__dirname + '/api/index.html');
 });
 
